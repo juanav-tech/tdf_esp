@@ -33,11 +33,6 @@ st.markdown(
         border-radius: 8px;
         margin-top: 10px;
     }
-    .subrayado {
-        text-decoration: underline;
-        text-decoration-color: #3b82f6;
-        text-decoration-thickness: 3px;
-    }
     </style>
 """,
     unsafe_allow_html=True,
@@ -69,7 +64,7 @@ if "question" not in st.session_state:
 
 # --- BARRA LATERAL: Preguntas Sugeridas ---
 with st.sidebar:
-    st.markdown("### 💡 <u>Preguntas Sugeridas</u>", unsafe_allow_html=True)
+    st.markdown("### 💡 Preguntas Sugeridas")
     st.write("Haz clic en una opción para cargar la pregunta:")
 
     if st.button(
@@ -100,25 +95,20 @@ with st.sidebar:
 
 # --- ESTRUCTURA PRINCIPAL: Organización por Pestañas (Tabs) ---
 tab1, tab2 = st.tabs(
-    ["📝 <u>Entrada de Datos</u>", "📊 <u>Analizar y Resultados</u>"]
+    ["📝 Entrada de Datos", "📊 Analizar y Resultados"]
 )
 
 with tab1:
     col_a, col_b = st.columns([1, 1], gap="medium")
 
     with col_a:
-        st.markdown(
-            "#### 📄 <u>Base de Conocimiento (Documentos)</u>",
-            unsafe_allow_html=True,
-        )
+        st.markdown("#### 📄 Base de Conocimiento (Documentos)")
         text_input = st.text_area(
             "Un documento por línea:", default_docs, height=220
         )
 
     with col_b:
-        st.markdown(
-            "#### ❓ <u>Pregunta a Evaluar</u>", unsafe_allow_html=True
-        )
+        st.markdown("#### ❓ Pregunta a Evaluar")
         question_input = st.text_input(
             "Tu consulta:", value=st.session_state.question
         )
@@ -127,9 +117,7 @@ with tab1:
         )
 
 with tab2:
-    st.markdown(
-        "### 🚀 <u>Procesamiento y Similitud</u>", unsafe_allow_html=True
-    )
+    st.markdown("### 🚀 Procesamiento y Similitud")
     btn_analizar = st.button("🔥 Ejecutar Análisis", type="primary")
 
     if btn_analizar or st.session_state.get("analizado", False):
@@ -160,10 +148,7 @@ with tab2:
             col_res1, col_res2 = st.columns([2, 1])
 
             with col_res1:
-                st.markdown(
-                    "#### 🎯 <u>Respuesta Relevante Encontrada</u>",
-                    unsafe_allow_html=True,
-                )
+                st.markdown("#### 🎯 Respuesta Relevante Encontrada")
                 if best_score > 0.01:
                     st.success(f"🏆 **Respuesta:** {best_doc}")
                 else:
@@ -172,10 +157,7 @@ with tab2:
                     )
 
             with col_res2:
-                st.markdown(
-                    "#### 📈 <u>Métrica de Similitud</u>",
-                    unsafe_allow_html=True,
-                )
+                st.markdown("#### 📈 Métrica de Similitud")
                 st.metric(
                     label="Puntuación Coseno",
                     value=f"{best_score:.3f}",
@@ -186,7 +168,7 @@ with tab2:
 
             # Matriz TF-IDF Desplegable
             st.write("---")
-            with st.expander("📋 **<u>Ver Matriz TF-IDF de los Documentos</u>**"):
+            with st.expander("📋 **Ver Matriz TF-IDF de los Documentos**"):
                 df_tfidf = pd.DataFrame(
                     X.toarray(),
                     columns=vectorizer.get_feature_names_out(),
